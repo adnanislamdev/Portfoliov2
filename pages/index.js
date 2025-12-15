@@ -13,6 +13,20 @@ export default function Home() {
       <div className="page-container">
         <div className="container">
           <section className="hero">
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <img
+                src="/profile-photo.png"
+                alt="Adnan Islam"
+                style={{
+                  width: '200px',
+                  height: '200px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  border: '4px solid var(--primary-blue)',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                }}
+              />
+            </div>
             <h1 className="page-title">Adnan Islam's Portfolio</h1>
             <p style={{ fontSize: '1.2rem', textAlign: 'center', color: 'var(--text-light)', marginBottom: '3rem' }}>
               Full Stack Developer | Problem Solver | Creative Thinker

@@ -49,8 +49,6 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        const newSubmission = await response.json();
-        setSubmissions([newSubmission, ...submissions]);
         setFormData({
           first_name: '',
           last_name: '',
@@ -58,6 +56,8 @@ export default function Contact() {
           comment: '',
         });
         setMessage('Thank you for your message! It has been submitted successfully.');
+        // Refresh submissions from server to get the latest messages
+        fetchSubmissions();
       } else {
         setMessage('There was an error submitting your message. Please try again.');
       }

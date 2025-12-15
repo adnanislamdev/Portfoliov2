@@ -58,7 +58,7 @@ Frontend runs on `http://localhost:3000`
 
 1. Open `http://localhost:3000` in your browser
 2. Navigate to the Upload page to add some initial data
-3. Check the Experience and Projects pages to see your data
+3. Check the Projects page to see your data
 4. Test the Contact form - submissions will appear at the bottom of the page
 
 ## Troubleshooting

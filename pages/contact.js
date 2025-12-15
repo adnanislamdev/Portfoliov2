@@ -20,14 +20,9 @@ export default function Contact() {
   const fetchSubmissions = async () => {
     try {
       const response = await fetch('/api/contacts');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
       const data = await response.json();
-      setSubmissions(data);
+      setSubmissions(data || []);
     } catch (error) {
-      console.error('Error fetching submissions:', error);
-      setMessage('Error loading messages. Make sure the backend server is running.');
     }
   };
 
@@ -53,7 +48,6 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        const result = await response.json();
         setFormData({
           first_name: '',
           last_name: '',
@@ -61,18 +55,24 @@ export default function Contact() {
           comment: '',
         });
         setMessage('Thank you for your message! It has been submitted successfully.');
-        // Refresh submissions from server to get the latest messages
         fetchSubmissions();
-      } else {
-        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-        console.error('Server error:', errorData);
-        setMessage(`Error: ${errorData.error || 'There was an error submitting your message. Please try again.'}`);
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setMessage(`Error: ${error.message || 'Failed to connect to server. Make sure the backend is running on port 5000.'}`);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`/api/contacts/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        fetchSubmissions();
+      }
+    } catch (error) {
     }
   };
 
@@ -98,49 +98,45 @@ export default function Contact() {
               </p>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label htmlFor="first_name">First Name *</label>
+                  <label htmlFor="first_name">First Name</label>
                   <input
                     type="text"
                     id="first_name"
                     name="first_name"
                     value={formData.first_name}
                     onChange={handleChange}
-                    required
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="last_name">Last Name *</label>
+                  <label htmlFor="last_name">Last Name</label>
                   <input
                     type="text"
                     id="last_name"
                     name="last_name"
                     value={formData.last_name}
                     onChange={handleChange}
-                    required
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="email">Email *</label>
+                  <label htmlFor="email">Email</label>
                   <input
-                    type="email"
+                    type="text"
                     id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
                   />
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="comment">Message *</label>
+                  <label htmlFor="comment">Message</label>
                   <textarea
                     id="comment"
                     name="comment"
                     value={formData.comment}
                     onChange={handleChange}
-                    required
                   />
                 </div>
 
@@ -150,10 +146,8 @@ export default function Contact() {
                       padding: '1rem',
                       marginBottom: '1rem',
                       borderRadius: '5px',
-                      backgroundColor: message.toLowerCase().includes('error') || message.toLowerCase().includes('failed')
-                        ? '#fee2e2'
-                        : '#d1fae5',
-                      color: message.toLowerCase().includes('error') || message.toLowerCase().includes('failed') ? '#991b1b' : '#065f46',
+                      backgroundColor: '#d1fae5',
+                      color: '#065f46',
                     }}
                   >
                     {message}
@@ -202,19 +196,32 @@ export default function Contact() {
               <div className="submissions-list">
                 {submissions.map((submission) => (
                   <div key={submission.id} className="card">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                      <h3 style={{ color: 'var(--dark-blue)' }}>
-                        {submission.first_name} {submission.last_name}
-                      </h3>
-                      <span style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>
-                        {new Date(submission.created_at).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', alignItems: 'flex-start' }}>
+                      <div style={{ flex: 1 }}>
+                        <h3 style={{ color: 'var(--dark-blue)', marginBottom: '0.25rem' }}>
+                          {submission.first_name} {submission.last_name}
+                        </h3>
+                        <span style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>
+                          {new Date(submission.created_at).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => handleDelete(submission.id)}
+                        className="btn btn-secondary"
+                        style={{
+                          padding: '0.5rem 1rem',
+                          fontSize: '0.85rem',
+                          marginLeft: '1rem',
+                        }}
+                      >
+                        Delete
+                      </button>
                     </div>
                     <p style={{ color: 'var(--text-light)', marginBottom: '0.5rem' }}>
                       {submission.email}

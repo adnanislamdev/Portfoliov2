@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Layout from '../components/Layout';
 
 export default function Contact() {
@@ -13,18 +13,18 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    fetchSubmissions();
-  }, []);
-
-  const fetchSubmissions = async () => {
+  const fetchSubmissions = useCallback(async () => {
     try {
       const response = await fetch('/api/contacts');
       const data = await response.json();
       setSubmissions(data || []);
     } catch (error) {
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchSubmissions();
+  }, [fetchSubmissions]);
 
   const handleChange = (e) => {
     setFormData({

@@ -6,7 +6,7 @@ export default function Layout({ children }) {
       <nav>
         <div className="container">
           <Link href="/" className="nav-logo">
-            My Portfolio
+            Adnan Islam's Portfolio
           </Link>
           <ul className="nav-links">
             <li>

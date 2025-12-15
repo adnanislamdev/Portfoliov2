@@ -13,7 +13,7 @@ export default function Home() {
       <div className="page-container">
         <div className="container">
           <section className="hero">
-            <h1 className="page-title">Welcome to My Portfolio</h1>
+            <h1 className="page-title">Adnan Islam's Portfolio</h1>
             <p style={{ fontSize: '1.2rem', textAlign: 'center', color: 'var(--text-light)', marginBottom: '3rem' }}>
               Full Stack Developer | Problem Solver | Creative Thinker
             </p>

@@ -20,10 +20,14 @@ export default function Contact() {
   const fetchSubmissions = async () => {
     try {
       const response = await fetch('/api/contacts');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       setSubmissions(data);
     } catch (error) {
       console.error('Error fetching submissions:', error);
+      setMessage('Error loading messages. Make sure the backend server is running.');
     }
   };
 
@@ -49,6 +53,7 @@ export default function Contact() {
       });
 
       if (response.ok) {
+        const result = await response.json();
         setFormData({
           first_name: '',
           last_name: '',
@@ -59,11 +64,13 @@ export default function Contact() {
         // Refresh submissions from server to get the latest messages
         fetchSubmissions();
       } else {
-        setMessage('There was an error submitting your message. Please try again.');
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('Server error:', errorData);
+        setMessage(`Error: ${errorData.error || 'There was an error submitting your message. Please try again.'}`);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      setMessage('There was an error submitting your message. Please try again.');
+      setMessage(`Error: ${error.message || 'Failed to connect to server. Make sure the backend is running on port 5000.'}`);
     } finally {
       setLoading(false);
     }
@@ -143,10 +150,10 @@ export default function Contact() {
                       padding: '1rem',
                       marginBottom: '1rem',
                       borderRadius: '5px',
-                      backgroundColor: message.includes('error')
+                      backgroundColor: message.toLowerCase().includes('error') || message.toLowerCase().includes('failed')
                         ? '#fee2e2'
                         : '#d1fae5',
-                      color: message.includes('error') ? '#991b1b' : '#065f46',
+                      color: message.toLowerCase().includes('error') || message.toLowerCase().includes('failed') ? '#991b1b' : '#065f46',
                     }}
                   >
                     {message}
@@ -165,18 +172,18 @@ export default function Contact() {
               </h2>
               <div style={{ lineHeight: '2' }}>
                 <p>
-                  <strong>Email:</strong> your.email@example.com
+                  <strong>Email:</strong> adnanislamdev@gmail.com
                 </p>
                 <p>
                   <strong>LinkedIn:</strong>{' '}
-                  <a href="#" target="_blank" rel="noopener noreferrer">
-                    linkedin.com/in/yourprofile
+                  <a href="https://linkedin.com/in/a-dnanislam/" target="_blank" rel="noopener noreferrer">
+                    LinkedIn
                   </a>
                 </p>
                 <p>
                   <strong>GitHub:</strong>{' '}
-                  <a href="#" target="_blank" rel="noopener noreferrer">
-                    github.com/yourusername
+                  <a href="https://github.com/adnanislamdev" target="_blank" rel="noopener noreferrer">
+                    GitHub
                   </a>
                 </p>
               </div>
@@ -189,7 +196,7 @@ export default function Contact() {
             </h2>
             {submissions.length === 0 ? (
               <div className="card" style={{ textAlign: 'center' }}>
-                <p>No messages yet. Be the first to reach out!</p>
+                <p>No messages yet</p>
               </div>
             ) : (
               <div className="submissions-list">

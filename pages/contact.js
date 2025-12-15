@@ -87,7 +87,7 @@ export default function Contact() {
         <div className="container">
           <h1 className="page-title">Contact Me</h1>
 
-          <div className="grid grid-2" style={{ marginBottom: '3rem' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', marginBottom: '3rem' }}>
             <div className="card">
               <h2 style={{ color: 'var(--primary-blue)', marginBottom: '1rem' }}>
                 Get in Touch
@@ -158,29 +158,6 @@ export default function Contact() {
                   {loading ? 'Submitting...' : 'Send Message'}
                 </button>
               </form>
-            </div>
-
-            <div className="card">
-              <h2 style={{ color: 'var(--primary-blue)', marginBottom: '1rem' }}>
-                Contact Information
-              </h2>
-              <div style={{ lineHeight: '2' }}>
-                <p>
-                  <strong>Email:</strong> adnanislamdev@gmail.com
-                </p>
-                <p>
-                  <strong>LinkedIn:</strong>{' '}
-                  <a href="https://linkedin.com/in/a-dnanislam/" target="_blank" rel="noopener noreferrer">
-                    LinkedIn
-                  </a>
-                </p>
-                <p>
-                  <strong>GitHub:</strong>{' '}
-                  <a href="https://github.com/adnanislamdev" target="_blank" rel="noopener noreferrer">
-                    GitHub
-                  </a>
-                </p>
-              </div>
             </div>
           </div>
 

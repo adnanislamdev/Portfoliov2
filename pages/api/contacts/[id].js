@@ -3,9 +3,19 @@ try {
   pool = require('../../../server/db');
 } catch (error) {
   console.error('Failed to load database connection:', error);
+  pool = null;
 }
 
 export default async function handler(req, res) {
+  // Ensure CORS headers are set
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (!pool) {
     return res.status(503).json({ error: 'Database connection not available' });
   }

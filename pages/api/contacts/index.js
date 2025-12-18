@@ -1,6 +1,15 @@
-const pool = require('../../../server/db');
+let pool;
+try {
+  pool = require('../../../server/db');
+} catch (error) {
+  console.error('Failed to load database connection:', error);
+}
 
 export default async function handler(req, res) {
+  if (!pool) {
+    return res.status(503).json({ error: 'Database connection not available' });
+  }
+
   if (req.method === 'GET') {
     try {
       const result = await pool.query(

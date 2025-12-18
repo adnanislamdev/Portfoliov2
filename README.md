@@ -16,4 +16,3 @@ The website uses a backend server only for the Contact page. When visitors submi
 
 The backend server runs on Express.js and connects to a PostgreSQL database to store contact form submissions. The server continuously updates the messages displayed on the Contact page by fetching the latest submissions from the database whenever the page loads or a new message is submitted.
 
-All other content on the website (home page information and projects) is statically hardcoded and does not require any backend operations.

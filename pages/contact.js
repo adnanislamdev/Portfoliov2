@@ -19,6 +19,7 @@ export default function Contact() {
       const data = await response.json();
       setSubmissions(data || []);
     } catch (error) {
+      console.error('Error fetching submissions:', error);
     }
   }, []);
 
@@ -56,8 +57,12 @@ export default function Contact() {
         });
         setMessage('Thank you for your message! It has been submitted successfully.');
         fetchSubmissions();
+      } else {
+        setMessage('Failed to submit message. Please try again.');
       }
     } catch (error) {
+      console.error('Error submitting form:', error);
+      setMessage('An error occurred. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -73,6 +78,7 @@ export default function Contact() {
         fetchSubmissions();
       }
     } catch (error) {
+      console.error('Error deleting submission:', error);
     }
   };
 
@@ -93,8 +99,7 @@ export default function Contact() {
                 Get in Touch
               </h2>
               <p style={{ marginBottom: '1.5rem', lineHeight: '1.8' }}>
-                I'd love to hear from you! Whether you have a question, want to collaborate,
-                or just want to say hello, feel free to reach out using the form.
+                I'd love to hear from you! Feel free to reach out using the form.
               </p>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -105,6 +110,7 @@ export default function Contact() {
                     name="first_name"
                     value={formData.first_name}
                     onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -116,17 +122,19 @@ export default function Contact() {
                     name="last_name"
                     value={formData.last_name}
                     onChange={handleChange}
+                    required
                   />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
                   <input
-                    type="text"
+                    type="email"
                     id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    required
                   />
                 </div>
 
@@ -137,6 +145,7 @@ export default function Contact() {
                     name="comment"
                     value={formData.comment}
                     onChange={handleChange}
+                    required
                   />
                 </div>
 

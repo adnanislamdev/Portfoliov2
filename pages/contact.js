@@ -16,10 +16,20 @@ export default function Contact() {
   const fetchSubmissions = useCallback(async () => {
     try {
       const response = await fetch('/api/contacts');
+      if (!response.ok) {
+        // If database is not available, just show empty list
+        if (response.status === 503) {
+          console.log('Database not available, showing empty list');
+          setSubmissions([]);
+          return;
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
-      setSubmissions(data || []);
+      setSubmissions(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Error fetching submissions:', error);
+      setSubmissions([]);
     }
   }, []);
 
@@ -58,7 +68,12 @@ export default function Contact() {
         setMessage('Thank you for your message! It has been submitted successfully.');
         fetchSubmissions();
       } else {
-        setMessage('Failed to submit message. Please try again.');
+        const errorData = await response.json().catch(() => ({}));
+        if (response.status === 503) {
+          setMessage('Database is not available. Please try again later.');
+        } else {
+          setMessage(errorData.error || 'Failed to submit message. Please try again.');
+        }
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -76,6 +91,8 @@ export default function Contact() {
 
       if (response.ok) {
         fetchSubmissions();
+      } else {
+        console.error('Failed to delete submission:', response.status);
       }
     } catch (error) {
       console.error('Error deleting submission:', error);

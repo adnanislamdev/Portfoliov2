@@ -29,24 +29,21 @@ export default function Home() {
             </div>
             <h1 className="page-title">Adnan Islam's Portfolio</h1>
             <p style={{ fontSize: '1.2rem', textAlign: 'center', color: 'var(--text-light)', marginBottom: '3rem' }}>
-              Full Stack Developer | Problem Solver | Creative Thinker
+              Full Stack Developer | Sofware Engineer | IT Technician
             </p>
           </section>
 
           <section className="about">
             <div className="card">
-              <h2 style={{ color: 'var(--primary-blue)', marginBottom: '1rem' }}>About Me</h2>
-              <p style={{ marginBottom: '1rem', lineHeight: '1.8' }}>
-                I'm a Computer Science undergraduate at CUNY Lehman College, graduating in December 2025, with a strong interest in software engineering and problem-solving through technology. I enjoy building practical, user-focused solutions and have experience working across programming, technical support, and customer-facing environments.
+              <h2 style={{ color: 'var(--primary-blue)', marginBottom: '1.5rem', fontSize: '2rem' }}>About Me</h2>
+              <p style={{ marginBottom: '1.5rem', lineHeight: '2', fontSize: '1.3rem', color: 'var(--text-dark)' }}>
+                I'm a Computer Science undergraduate at CUNY Lehman College, graduating in December 2025, with a passion for software engineering and technology solutions. Currently, I work as a Geek Squad Senior at Best Buy, where I lead a team of agents and help improve how we serve customers. I've been working in technical support for over three years, and I really enjoy helping people solve their technology problems. I work with all kinds of devices and operating systems—Windows, Mac, and Linux—fixing hardware and software issues, removing malware, and helping people recover their data when things go wrong.
               </p>
-              <p style={{ marginBottom: '1rem', lineHeight: '1.8' }}>
-                Currently, I work as a Geek Squad Consultation Agent at Best Buy, where I troubleshoot hardware and software issues, communicate technical concepts clearly to non-technical users, and provide reliable, detail-oriented support under pressure. I'm also Apple Certified, which has strengthened my understanding of device ecosystems and repair workflows.
+              <p style={{ marginBottom: '1.5rem', lineHeight: '2', fontSize: '1.3rem', color: 'var(--text-dark)' }}>
+                When I'm not at work, I love building projects that solve real problems. I created an Automated Parking Detector using Python and OpenCV that can automatically tell when parking spots are available or taken. I also built a full-stack website for a restaurant using Next.js and React, working closely with the client to make sure it looked great and worked smoothly on all devices. These projects taught me a lot about taking an idea and turning it into something people can actually use.
               </p>
-              <p style={{ marginBottom: '1rem', lineHeight: '1.8' }}>
-                Academically and personally, I've worked on projects using Java, Python, and C++, including GUI applications, data structures, and computer vision tools. I'm especially interested in software development that combines clean design, efficiency, and real-world impact. Beyond tech, I've served as Treasurer of the Muslim Student Association, organizing events and managing funds—an experience that helped develop my leadership, collaboration, and organizational skills.
-              </p>
-              <p style={{ lineHeight: '1.8' }}>
-                I'm always looking to grow as a developer, learn new technologies, and apply my skills in environments where curiosity, teamwork, and continuous improvement are valued.
+              <p style={{ lineHeight: '2', fontSize: '1.3rem', color: 'var(--text-dark)' }}>
+                I work with programming languages like Python, C++, Java, and JavaScript, and I'm comfortable with web development, hardware troubleshooting, and network setup. I'm always excited to learn new things and work with people who care about building good software and helping others. I believe the best solutions come from understanding the problem, working together, and never stopping to improve.
               </p>
             </div>
           </section>

@@ -1,19 +1,27 @@
 const { Pool } = require('pg');
+const { parse: parseConnectionString } = require('pg-connection-string');
 
 let pool = null;
 
 try {
-  // For Vercel/serverless, use connection string if available
   let poolConfig = {};
+  const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL;
 
-  if (process.env.DATABASE_URL || process.env.POSTGRES_URL) {
-    // Use connection string (preferred for Vercel)
+  if (connectionString) {
+    // Parse the URL ourselves and build an explicit config so the `ssl` option
+    // we set below cannot be overridden by a `sslmode=require` (or similar) flag
+    // in the connection string, which is what causes SELF_SIGNED_CERT_IN_CHAIN
+    // errors on Vercel against managed Postgres (Supabase/Neon/etc.).
+    const parsed = parseConnectionString(connectionString);
     poolConfig = {
-      connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL,
+      host: parsed.host,
+      port: parsed.port ? Number(parsed.port) : 5432,
+      database: parsed.database,
+      user: parsed.user,
+      password: parsed.password,
       ssl: { rejectUnauthorized: false },
     };
   } else {
-    // Use individual connection parameters
     poolConfig = {
       user: process.env.DB_USER || process.env.POSTGRES_USER || 'postgres',
       host: process.env.DB_HOST || process.env.POSTGRES_HOST || 'localhost',

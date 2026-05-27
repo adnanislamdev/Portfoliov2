@@ -31,36 +31,16 @@ export default function Layout({ children }) {
             <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
               <div style={{ fontSize: '1.1rem', fontWeight: '500' }}>
                 <a 
-                  href="mailto:adnan.islam28@gmail.com" 
+                  href="mailto:adnanislamdev@gmail.com" 
                   style={{ 
                     color: 'var(--primary-white)',
                     textDecoration: 'none',
                     fontSize: '1rem'
                   }}
                 >
-                  adnan.islam28@gmail.com
+                  adnanislamdev@gmail.com
                 </a>
               </div>
-              <div style={{ fontSize: '1rem', color: 'var(--primary-white)' }}>
-                (929) 842-4556
-              </div>
-              <a
-                href="/Adnan-Islam-Resume.pdf"
-                download
-                style={{
-                  backgroundColor: 'white',
-                  color: 'var(--primary-blue)',
-                  padding: '0.75rem 1.5rem',
-                  borderRadius: '5px',
-                  textDecoration: 'none',
-                  fontWeight: '600',
-                  fontSize: '1.1rem',
-                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                  display: 'inline-block',
-                }}
-              >
-                Download Resume
-              </a>
               <a 
                 href="https://linkedin.com/in/a-dnanislam/" 
                 target="_blank" 
